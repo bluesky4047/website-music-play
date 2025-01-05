@@ -130,9 +130,10 @@
             100% { transform: translateY(-100vh); opacity: 0; }
         }
 
-        @media (max-width: 600px) {
+        /* Untuk layar besar (Tablet dan atasnya) */
+        @media (max-width: 1024px) {
             .container {
-                width: 90%;
+                width: 80%;
             }
 
             .player {
@@ -140,7 +141,7 @@
             }
 
             .title {
-                font-size: 2em;
+                font-size: 1.5em;
             }
 
             .lyrics {
@@ -153,7 +154,7 @@
             }
 
             .visualizer-container {
-                height: 70px;
+                height: 120px;
             }
 
             .progress-bar {
@@ -168,46 +169,7 @@
                 font-size: 1em;
             }
         }
-
-        /* Untuk layar besar (Tablet dan atasnya) */
-        @media (max-width: 1024px) {
-            .container {
-                width: 85%;
-            }
-
-            .player {
-                padding: 1rem;
-            }
-
-            .title {
-                font-size: 1em;
-            }
-
-            .lyrics {
-                font-size: 1.4em;
-            }
-        }
-
-        /* Untuk layar desktop (lebih besar dari 1024px) */
-        @media (min-width: 1025px) {
-            .container {
-                width: 80%;
-            }
-
-            .player {
-                padding: 2rem;
-            }
-
-            .title {
-                font-size: 2em;
-            }
-
-            .lyrics {
-                font-size: 1.5em;
-            }
-        }
-
-
+        
     </style>
 </head>
 <body>
