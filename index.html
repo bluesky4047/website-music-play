@@ -5,7 +5,6 @@
     <title>Wasureji no Kotonoha - DAZBEE Cover</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* ... Style sebelumnya tetap sama ... */
         body {
             margin: 0;
             padding: 0;
@@ -14,7 +13,7 @@
             align-items: center;
             min-height: 100vh;
             background: linear-gradient(45deg, #1E3E62, #4a4a4a);
-            font-family: JetBrains Mono, monospace;
+            font-family: 'JetBrains Mono', monospace;
             color: white;
             overflow: hidden;
         }
@@ -22,89 +21,146 @@
         .container {
             text-align: center;
             position: relative;
-            width: 80%;
+            width: 90%;
             max-width: 800px;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .player {
-            background: rgba(0, 0, 0, 0.25);
+            background: rgba(0, 0, 0, 0.5);
             padding: 2rem;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         .title {
-            font-size: 2em;
+            font-size: 1.8em;
             margin-bottom: 1rem;
             color: #fff;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
-        .lyrics {
-            font-size: 1.5em;
-            margin: 2rem 0;
-            min-height: 100px;
-            transition: all 1s ease;
+        .lyrics-container {
+        height: 200px; /* Fixed height for 4 lines */
+        overflow: hidden; /* Hide overflow */
+        position: relative;
+        padding: 10px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         }
 
-        .lyrics.active {
-            color: #FF6500;
-            transform: scale(1.1);
+        .lyrics-line {
+            font-size: 1.2em;
+            height: 40px; /* Fixed height for each line */
+            margin: 5px 0;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            transform: scale(0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Tambahan style untuk visualizer */
+        .lyrics-line.active {
+            color: #1DB954;
+            opacity: 1;
+            transform: scale(1);
+            font-weight: bold;
+        }
+
+        .lyrics-line.nearby {
+            opacity: 0.7;
+        }
+            
         .visualizer-container {
+            height: 60px;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            height: 100px;
-            margin: 20px 0;
             gap: 2px;
+            margin: 20px 0;
         }
 
         .visualizer-bar {
-            width: 10px;
-            background: #FF6500;
+            width: 4px;
+            background: #1DB954;
             border-radius: 2px;
             transition: height 0.1s ease;
         }
 
-        .current-time {
-            font-size: 1.2em;
-            margin: 1rem 0;
+        .controls {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-top: auto;
+        }
+
+        .progress-container {
+            width: 100%;
+            margin-bottom: 15px;
         }
 
         .progress-bar {
             width: 100%;
-            height: 10px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
+            border-radius: 3px;
             margin: 1rem 0;
             cursor: pointer;
+            position: relative;
         }
 
         .progress {
             height: 100%;
-            background: #ffffff;
-            border-radius: 5px;
+            background: #1DB954;
+            border-radius: 3px;
             width: 0%;
             transition: width 0.1s linear;
         }
 
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: #aaa;
+        }
+
         button {
-            background: #fff;
-            border: none;
+            background: transparent;
+            border: 1px solid #1DB954;
+            color: #1DB954;
             padding: 10px 20px;
             border-radius: 25px;
             cursor: pointer;
             font-size: 1em;
             margin: 0 10px;
             transition: all 0.3s ease;
+            min-width: 100px;
         }
 
         button:hover {
-            transform: scale(1.1);
-            background: #eee;
+            background: #1DB954;
+            color: white;
+        }
+
+        .lyrics-container::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .lyrics-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .lyrics-container::-webkit-scrollbar-thumb {
+            background: #1DB954;
+            border-radius: 5px;
         }
 
         .background-particles {
@@ -130,10 +186,10 @@
             100% { transform: translateY(-100vh); opacity: 0; }
         }
 
-        /* Untuk layar besar (Tablet dan atasnya) */
-        @media (max-width: 1024px) {
+        @media (max-width: 768px) {
             .container {
-                width: 80%;
+                width: 95%;
+                height: 95vh;
             }
 
             .player {
@@ -141,53 +197,41 @@
             }
 
             .title {
-                font-size: 1.5em;
-            }
-
-            .lyrics {
                 font-size: 1.2em;
             }
 
-            .controls button {
-                font-size: 0.9em;
-            }
-
-            .visualizer-container {
-                height: 120px;
-                margin: 20px 0;
-            }
-
-            .progress-bar {
-                height: 8px;
-            }
-
-            .visualizer-bar {
-                width: 8px;
-            }
-
-            .current-time {
+            .lyrics-line {
                 font-size: 1em;
             }
+
+            button {
+                padding: 8px 16px;
+                font-size: 0.9em;
+                min-width: 80px;
+            }
         }
-        
     </style>
 </head>
 <body>
     <div class="background-particles" id="particles"></div>
     <div class="container">
         <div class="player">
-            <h1 class="title">『Wasureji no Kotonoha (忘れじの言の葉)』 Covered by DAZBEE</h1>
+            <h1 class="title">『Wasureji no Kotonoha (忘れじの言の葉)』<br>Covered by DAZBEE</h1>
             <div class="visualizer-container" id="visualizer"></div>
-            <div class="current-time">0:00</div>
-            <div class="progress-bar" id="progressBar">
-                <div class="progress" id="progress"></div>
-            </div>
-            <div class="lyrics" id="lyrics"></div>
+            <div class="lyrics-container" id="lyrics-container"></div>
             <div class="controls">
-                <button onclick="togglePlay()">&#9658;</button>
-                <button onclick="restart()">&#10226;</button>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span>
+                        <span id="totalTime">0:00</span>
+                    </div>
+                </div>
+                <button id="playBtn" onclick="togglePlay()">Play</button>
+                <button onclick="restart()">Restart</button>
             </div>
-            <audio id="audio" src="dazbe.mp3"></audio>
         </div>
     </div>
 
@@ -241,27 +285,79 @@
             {time: 230, text: "Translation : AMVrom Indonesia Subtitle : Natalia"}
         ];
 
-        const audio = document.getElementById('audio');
-        const lyricsDiv = document.getElementById('lyrics');
+        const audio = new Audio('dazbe.mp3');
+        const playBtn = document.getElementById('playBtn');
         const progressBar = document.getElementById('progress');
-        const currentTimeDiv = document.querySelector('.current-time');
-        let currentLyricIndex = 0;
-
-        // Setup visualizer
-        const visualizerContainer = document.getElementById('visualizer');
+        const currentTimeSpan = document.getElementById('currentTime');
+        const totalTimeSpan = document.getElementById('totalTime');
+        let audioContext, analyser, dataArray;
         const NUM_BARS = 32;
         const visualizerBars = [];
 
-        for (let i = 0; i < NUM_BARS; i++) {
-            const bar = document.createElement('div');
-            bar.className = 'visualizer-bar';
-            visualizerContainer.appendChild(bar);
-            visualizerBars.push(bar);
+        // Create lyrics elements
+        function createLyricsElements() {
+        const container = document.getElementById('lyrics-container');
+        // Create only 4 placeholder lines
+        for (let i = 0; i < 1.5; i++) {
+            const line = document.createElement('div');
+            line.className = 'lyrics-line';
+            line.dataset.index = i;
+            container.appendChild(line);
+        }
         }
 
-        // Audio context setup for visualizer
-        let audioContext, analyser, dataArray;
+        function updateLyrics(currentTime) {
+            const lines = document.querySelectorAll('.lyrics-line');
+            let activeIndex = -1;
 
+            // Find current active lyric
+            for (let i = 0; i < lyrics.length; i++) {
+                if (currentTime >= lyrics[i].time && 
+                    (i === lyrics.length - 1 || currentTime < lyrics[i + 1].time)) {
+                    activeIndex = i;
+                    break;
+                }
+            }
+
+            if (activeIndex !== -1) {
+                // Calculate which lyrics to show (2 before and 1 after active lyric)
+                let startIndex = Math.max(0, activeIndex - 1);
+                let endIndex = Math.min(startIndex + 4, lyrics.length);
+                startIndex = Math.max(0, endIndex - 4); // Adjust start if near the end
+
+                // Update the 4 visible lines
+                lines.forEach((line, i) => {
+                    const lyricIndex = startIndex + i;
+                    if (lyricIndex < lyrics.length) {
+                        line.textContent = lyrics[lyricIndex].text;
+                        line.classList.remove('active', 'nearby');
+                        
+                        if (lyricIndex === activeIndex) {
+                            line.classList.add('active');
+                        } else {
+                            line.classList.add('nearby');
+                        }
+                    } else {
+                        line.textContent = '';
+                        line.classList.remove('active', 'nearby');
+                    }
+                });
+            }
+        }
+
+
+        // Initialize visualizer
+        function setupVisualizer() {
+            const container = document.getElementById('visualizer');
+            for (let i = 0; i < NUM_BARS; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'visualizer-bar';
+                container.appendChild(bar);
+                visualizerBars.push(bar);
+            }
+        }
+
+        // Initialize audio context
         function initAudioContext() {
             audioContext = new (window.AudioContext || window.webkitAudioContext)();
             analyser = audioContext.createAnalyser();
@@ -272,77 +368,54 @@
             dataArray = new Uint8Array(analyser.frequencyBinCount);
         }
 
+        // Update visualizer
         function updateVisualizer() {
             if (!audioContext) return;
             analyser.getByteFrequencyData(dataArray);
             
             for (let i = 0; i < NUM_BARS; i++) {
                 const value = dataArray[i];
-                const height = (value / 255) * 100;
+                const height = (value / 255) * 60;
                 visualizerBars[i].style.height = `${height}px`;
             }
             
             requestAnimationFrame(updateVisualizer);
         }
 
-        function updateLyrics(currentTime) {
-            let found = false;
-            for (let i = 0; i < lyrics.length; i++) {
-                if (currentTime >= lyrics[i].time && (i === lyrics.length - 1 || currentTime < lyrics[i + 1].time)) {
-                    if (currentLyricIndex !== i) {
-                        currentLyricIndex = i;
-                        lyricsDiv.textContent = lyrics[i].text;
-                        lyricsDiv.classList.add('active');
-                        setTimeout(() => lyricsDiv.classList.remove('active'), 500);
-                    }
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                lyricsDiv.textContent = '';
-            }
-        }
-
+        // Format time to MM:SS
         function formatTime(seconds) {
             const minutes = Math.floor(seconds / 60);
             const remainingSeconds = Math.floor(seconds % 60);
             return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
 
-        audio.addEventListener('timeupdate', () => {
-            const currentTime = audio.currentTime;
-            updateLyrics(currentTime);
-            currentTimeDiv.textContent = formatTime(currentTime);
-            const progress = (currentTime / audio.duration) * 100;
-            progressBar.style.width = `${progress}%`;
-        });
-
+        // Toggle play/pause
         async function togglePlay() {
             if (!audioContext) {
                 initAudioContext();
                 updateVisualizer();
+                createLyricsElements();
             }
             
             if (audio.paused) {
                 await audioContext.resume();
-                audio.play();
+                await audio.play();
+                playBtn.textContent = 'Pause';
             } else {
                 audio.pause();
+                playBtn.textContent = 'Play';
             }
         }
 
+        // Restart audio
         function restart() {
             audio.currentTime = 0;
-            audio.play();
+            if (audio.paused) {
+                togglePlay();
+            }
         }
 
-        document.getElementById('progressBar').addEventListener('click', (e) => {
-            const rect = e.target.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            audio.currentTime = pos * audio.duration;
-        });
-
+        // Create floating particles
         function createParticles() {
             const container = document.getElementById('particles');
             for (let i = 0; i < 50; i++) {
@@ -357,7 +430,74 @@
             }
         }
 
-        createParticles();
+        // Event Listeners
+        audio.addEventListener('loadedmetadata', () => {
+            totalTimeSpan.textContent = formatTime(audio.duration);
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const currentTime = audio.currentTime;
+            currentTimeSpan.textContent = formatTime(currentTime);
+            const progress = (currentTime / audio.duration) * 100;
+            progressBar.style.width = `${progress}%`;
+            updateLyrics(currentTime);
+        });
+
+        audio.addEventListener('ended', () => {
+            playBtn.textContent = 'Play';
+        });
+
+        document.getElementById('progressBar').addEventListener('click', (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pos * audio.duration;
+        });
+
+        // Handle keyboard controls
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case ' ':
+                    e.preventDefault();
+                    togglePlay();
+                    break;
+                case 'ArrowRight':
+                    audio.currentTime = Math.min(audio.currentTime + 5, audio.duration);
+                    break;
+                case 'ArrowLeft':
+                    audio.currentTime = Math.max(audio.currentTime - 5, 0);
+                    break;
+            }
+        });
+
+        // Initialize everything
+        window.addEventListener('load', () => {
+            createLyricsElements();
+            setupVisualizer();
+            createParticles();
+        });
+
+        // Error handling
+        audio.addEventListener('error', (e) => {
+            console.error('Error loading audio:', e);
+            alert('Error loading audio file. Please check if the file exists and try again.');
+        });
+
+        // Handle visibility change to pause when tab is hidden
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && !audio.paused) {
+                togglePlay();
+            }
+        });
+
+        // Handle window resize for responsive visualization
+        window.addEventListener('resize', () => {
+            if (visualizerBars.length > 0) {
+                const container = document.getElementById('visualizer');
+                container.innerHTML = '';
+                visualizerBars.length = 0;
+                setupVisualizer();
+            }
+        });
     </script>
 </body>
 </html>
