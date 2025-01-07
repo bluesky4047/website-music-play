@@ -46,14 +46,14 @@
         }
 
         .lyrics-container {
-        height: 200px; /* Fixed height for 4 lines */
-        overflow: hidden; /* Hide overflow */
-        position: relative;
-        padding: 10px 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+            height: 200px; /* Fixed height for 4 lines */
+            overflow: hidden; /* Hide overflow */
+            position: relative;
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .lyrics-line {
@@ -180,36 +180,6 @@
             animation: float 20s linear infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(100vh); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(-100vh); opacity: 0; }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                width: 95%;
-                height: 95vh;
-            }
-
-            .player {
-                padding: 1rem;
-            }
-
-            .title {
-                font-size: 1.2em;
-            }
-
-            .lyrics-line {
-                font-size: 1em;
-            }
-
-            button {
-                padding: 8px 16px;
-                font-size: 0.9em;
-                min-width: 80px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -298,7 +268,7 @@
         function createLyricsElements() {
         const container = document.getElementById('lyrics-container');
         // Create only 4 placeholder lines
-        for (let i = 0; i < 1.5; i++) {
+        for (let i = 0; i < 2; i++) {
             const line = document.createElement('div');
             line.className = 'lyrics-line';
             line.dataset.index = i;
